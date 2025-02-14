@@ -4,6 +4,7 @@ import NumberInput from './components/NumberInput';
 import PieChart from "./components/PieChart"
 import Stepper from './components/Stepper';
 import { Check } from 'lucide-react';
+import ProgressBar from './components/ProgressBar';
 
 function App() {
   const steps = ['Basic Information', 'Questions', 'Access To Test', 'Settings', 'Summary', 'Basic Information1', 'Access To Test2', 'Settings3'];
@@ -16,7 +17,7 @@ function App() {
         background="#e5e7eb"
         foreground="#3b82f6"
         size={120}
-        strokeWidth={10}
+        strokeWidth={8}
         inside
       />
 
@@ -30,7 +31,12 @@ function App() {
         value={value}
         onChange={setValue}
         minValue={0}
-        maxValue={999}
+        maxValue={99}
+      />
+
+      <ProgressBar
+        value={40}
+        size={8}
       />
     </main>
   )

@@ -1,7 +1,8 @@
 import { Plus, Minus } from 'lucide-react';
 
 interface NumberInputProps {
-  label?: string,               // label next to input eg. kg, pt
+  label?: boolean,              // if the input has label
+  labelText?: string,           // labelText next to input eg. kg, pt
   size?: number,                // size of plus, minus button
   value?: number,               // value in input
   minValue?: number,            // minimal value user can enter
@@ -13,15 +14,16 @@ interface NumberInputProps {
   plusBgColor?: string,         // background color of plus button
   plusIconColor?: string,       // color of icon on plus button
   textColor?: string,           // text color on input
-  labelColor?: string,          // color of label
+  labelColor?: string,          // color of labelText
   textSize?: number,            // size of text in input
-  labelSize?: number,           // size of label 
+  labelSize?: number,           // size of labelText 
   disabled?: boolean,           // if the button is disabled
   onChange: (value: number) => void     // function onChange
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({ 
-  label = "kg",                 
+  label = false,
+  labelText = "kg",                 
   size = 32,                    
   value = 0,                   
   minValue = 0,                 
@@ -39,7 +41,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   disabled = false,             
   onChange                      
 }) => {
-  const width = (maxValue.toString().length - 1) * 14;
+  const width = (maxValue.toString().length - 1) * 24;
 
   const decreaseValue = () => {
     const newValue = Math.max(value - 1, minValue);
@@ -99,9 +101,9 @@ return (
         width: `${width}px`
       }}
     />
-    {label && (
+    {label && labelText && (
       <>
-        <p style={{color: labelColor, fontSize: labelSize}}>{label}</p>
+        <p style={{color: labelColor, fontSize: labelSize}}>{labelText}</p>
       </>
     )}
     <button 
