@@ -20,8 +20,8 @@ interface StepperProps {
 const Stepper: React.FC<StepperProps> = ({ 
   currentStep,
   steps,
-  size = 28,
-  textSize = 16,
+  size = 20,
+  textSize = 14,
   primaryColor = "#EB4C60",
   bgColor = "#ffffff",
   nextStepsBorderColor = "#bdc1ca",
