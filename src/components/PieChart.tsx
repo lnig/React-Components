@@ -1,12 +1,12 @@
 import React from 'react';
 
 interface PieChartProps {
-  percentage: number;   // percentage of marked circle  
-  inside?: boolean;     // percent text inside pie chart
-  background?: string;   // color of background circle
-  foreground?: string;   // color of foreground circle
-  size?: number;        // size of pie chart
-  strokeWidth?: number; // width of stroke line, maxValue - 10
+  percentage: number,     // percentage of marked circle  
+  inside?: boolean,       // percent text inside pie chart
+  background?: string,    // color of background circle
+  foreground?: string,    // color of foreground circle
+  size?: number,          // size of pie chart
+  strokeWidth?: number,   // width of stroke line, maxValue - 10
 }
 
 const PieChart: React.FC<PieChartProps> = ({

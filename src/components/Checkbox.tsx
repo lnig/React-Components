@@ -7,7 +7,7 @@ interface CheckboxProps {
   borderColor?: string,         // border color of the checkbox                
   checkedColor?: string,        // color of the check icon and border if the checkbox is checked
   backgroundColor?: string,     // background color of the checkbox  
-  Icon: React.ElementType       // icon in checkbox
+  Icon?: React.ElementType       // icon in checkbox
   onChange: (checked: boolean) => void;  // function to call when the checkbox is clicked
 }
 

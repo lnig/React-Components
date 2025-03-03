@@ -3,9 +3,10 @@ import './App.css'
 import NumberInput from './components/NumberInput';
 import PieChart from "./components/PieChart"
 import Stepper from './components/Stepper';
-import { Check } from 'lucide-react';
+import { Check, Pen } from 'lucide-react';
 import ProgressBar from './components/ProgressBar';
 import Checkbox from './components/Checkbox';
+import Button from './components/Button';
 
 function App() {
   const steps = ['Basic Information', 'Questions', 'Access To Test', 'Settings', 'Summary', 'Basic Information1', 'Access To Test2', 'Settings3'];
@@ -45,6 +46,14 @@ function App() {
         onChange={setChecked}
       />
 
+      <Button 
+        text='Click Me'
+        size='m'
+        type='primary'
+        Icon={Pen}
+        onClick={() => alert('Button Clicked')}
+      />
+      
     </main>
   )
 }

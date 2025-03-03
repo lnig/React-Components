@@ -1,13 +1,13 @@
 import React from 'react';
 
 interface ProgressBarProps {
-  value: number;            // value of the progress bar (0-100)
-  size: number;             // height of the progress bar (max 16px)
-  foreground?: string;      // color of the filled part of the progress bar
-  background?: string;      // color of the empty part of the progress bar
-  divided?: boolean;        // whether to show divisions inside the filled part of the progress bar
-  dividedSteps?: number;    // number of divisions inside the filled part of the progress bar
-  messageBubble?: boolean;  // whether to show a message bubble with the current value
+  value: number,            // value of the progress bar (0-100)
+  size: number,             // height of the progress bar (max 16px)
+  foreground?: string,      // color of the filled part of the progress bar
+  background?: string,      // color of the empty part of the progress bar
+  divided?: boolean,        // whether to show divisions inside the filled part of the progress bar
+  dividedSteps?: number,    // number of divisions inside the filled part of the progress bar
+  messageBubble?: boolean,  // whether to show a message bubble with the current value
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({ 
