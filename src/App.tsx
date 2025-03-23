@@ -8,6 +8,7 @@ import ProgressBar from './components/ProgressBar';
 import Checkbox from './components/Checkbox';
 import Button from './components/Button';
 import Calendar from './components/Calendar';
+import Avatar from './components/Avatar';
 
 function App() {
   const steps = ['Basic Information', 'Questions', 'Access To Test', 'Settings', 'Summary', 'Basic Information1', 'Access To Test2', 'Settings3'];
@@ -80,7 +81,25 @@ function App() {
         onYearChange={handleYearChange}
       />
 
-      
+      <div className='flex -space-x-4'>
+        <Avatar
+          linkTo='https://avatars.githubusercontent.com/u/29613995?v=4'
+          src='https://avatars.githubusercontent.com/u/29613995?v=4'
+          alt='avatar'
+          size={32}
+        />
+        <Avatar
+          linkTo='https://avatars.githubusercontent.com/u/29613995?v=4'
+          src='https://avatars.githubusercontent.com/u/29613995?v=4'
+          alt='avatar'
+          size={32}
+        />
+         <Avatar
+          size={16}
+          staticAvatar
+          plusNumber={4}
+        />
+      </div>
 
     </main>
   )
