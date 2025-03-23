@@ -17,6 +17,7 @@ type CalendarProps = {
   onYearChange: (year: number) => void,
   primaryColor?: string,
   secondaryColor?: string,
+  size?: 's' | 'm' | 'l';
 };
 
 const Calendar: React.FC<CalendarProps> = ({
@@ -28,6 +29,7 @@ const Calendar: React.FC<CalendarProps> = ({
   onYearChange,
   primaryColor = '#EB4C60',
   secondaryColor = '#FFFFFF',
+  size = 'm',
 }) => {
   const [monthDropdownOpen, setMonthDropdownOpen] = useState(false);
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
@@ -90,15 +92,15 @@ const Calendar: React.FC<CalendarProps> = ({
       <div className='flex justify-between items-center mb-4'>
         <button
           onClick={handlePrev}
-          className={`grid place-content-center w-6 h-6 bg-[#F2F3F4] hover:bg-[#DEE1E5] rounded`}
+          className={`grid place-content-center ${size === 's' ? 'w-5 h-5' : size === 'm' ? 'w-6 h-6' : 'w-7 h-7'} bg-[#F2F3F4] hover:bg-[#DEE1E5] rounded`}
           aria-label="Previous month"
         >
-          <ChevronLeft size={16} color='#313642' />
+          <ChevronLeft size={size === 's' ? 14 : size === 'm' ? 16 : 18} color='#313642' />
         </button>
 
         <div className='flex items-center relative'>
           <div className="relative text-center w-full" ref={monthDropdownRef}>
-            <p className={`px-2 min-w-12 text-base text-[#313642] cursor-pointer hover:bg-[#F2F3F4] ${monthDropdownOpen ? 'bg-[#F2F3F4]' : ''} rounded`} onClick={() => {setMonthDropdownOpen(!monthDropdownOpen); setYearDropdownOpen(false)}}>
+            <p className={`px-2 min-w-14 text-base text-[#313642] cursor-pointer hover:bg-[#F2F3F4] ${monthDropdownOpen ? 'bg-[#F2F3F4]' : ''} rounded`} onClick={() => {setMonthDropdownOpen(!monthDropdownOpen); setYearDropdownOpen(false)}}>
               {monthNames[currentMonthIndex]}
             </p>
 
@@ -150,18 +152,18 @@ const Calendar: React.FC<CalendarProps> = ({
 
         <button
           onClick={handleNext}
-          className={`grid place-content-center w-6 h-6 bg-[#F2F3F4] hover:bg-[#DEE1E5] rounded`}
+          className={`grid place-content-center ${size === 's' ? 'w-5 h-5' : size === 'm' ? 'w-6 h-6' : 'w-7 h-7'} bg-[#F2F3F4] hover:bg-[#DEE1E5] rounded`}
           aria-label="Next month"
         >
-          <ChevronRight size={16} color='#313642' />
+          <ChevronRight size={size === 's' ? 14 : size === 'm' ? 16 : 18} color='#313642' />
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-4">
+      <div className={`grid grid-cols-7 ${size === 's' ? 'gap-0' : size === 'm' ? 'gap-2' : 'gap-4'}`}>
         {dayNames.map((dayName, index) => {
           const isWeekend = index === 5 || index === 6;
           return (
-            <div key={index} className="w-full flex justify-center items-center">
+            <div key={index} className={`w-full flex justify-center items-center ${size === 's' ? 'mb-1' : 'mb-0'}`}>
               <p className={`font-semibold text-xs text-center ${isWeekend ? 'text-[#EB4C60]' : 'text-[#8E94A0]'}`}>
                 {dayName.slice(0, 1)}
               </p>
@@ -219,7 +221,7 @@ const Calendar: React.FC<CalendarProps> = ({
             const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
             return (
-              <div key={idx} className="relative w-full flex flex-col justify-center items-center"
+              <div key={idx} className={`relative w-full flex flex-col justify-center items-center ${size === 's' ? 'py-[3px]' : 'py-0'}`}
                    style={{ '--primary-color': primaryColor, '--secondary-color': secondaryColor } as React.CSSProperties}>
                 <p
                   className={`flex items-center justify-center text-base focus:outline-none

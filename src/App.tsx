@@ -3,12 +3,13 @@ import './App.css'
 import NumberInput from './components/NumberInput';
 import PieChart from "./components/PieChart"
 import Stepper from './components/Stepper';
-import { Check, Pen } from 'lucide-react';
+import { Calendar1, Check, Pen } from 'lucide-react';
 import ProgressBar from './components/ProgressBar';
 import Checkbox from './components/Checkbox';
 import Button from './components/Button';
 import Calendar from './components/Calendar';
 import Avatar from './components/Avatar';
+import DatePicker from './components/DatePicker';
 
 function App() {
   const steps = ['Basic Information', 'Questions', 'Access To Test', 'Settings', 'Summary', 'Basic Information1', 'Access To Test2', 'Settings3'];
@@ -31,7 +32,7 @@ function App() {
   };
 
   return (
-    <main className='flex flex-col w-full h-full p-8 gap-8'>
+    <main className='flex flex-col w-full h-[200vh] p-8 gap-8'>
       <PieChart
         percentage={75}
         size={120}
@@ -79,6 +80,7 @@ function App() {
         onDateSelect={handleDateSelect}
         onMonthChange={handleMonthChange}
         onYearChange={handleYearChange}
+        size='s'
       />
 
       <div className='flex -space-x-4'>
@@ -100,6 +102,11 @@ function App() {
           plusNumber={4}
         />
       </div>
+
+      <DatePicker
+        size='m'
+        Icon={Calendar1}
+      />
 
     </main>
   )
