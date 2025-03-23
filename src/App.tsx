@@ -17,24 +17,6 @@ function App() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
-  const handlePrev = () => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11);
-      setCurrentYear(currentYear - 1);
-    } else {
-      setCurrentMonth(currentMonth - 1);
-    }
-  }
-
-  const handleNext = () => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0);
-      setCurrentYear(currentYear + 1);
-    } else {
-      setCurrentMonth(currentMonth + 1);
-    }
-  }
-
   const handleMonthChange = (monthIndex: number) => {
     setCurrentMonth(monthIndex);
   }
@@ -72,6 +54,7 @@ function App() {
       <ProgressBar
         value={40}
         size={8}
+        messageBubble
       />
 
       <Checkbox 
@@ -93,12 +76,10 @@ function App() {
         currentMonthIndex={currentMonth}
         selectedDate={selectedDate}
         onDateSelect={handleDateSelect}
-        handlePrev={handlePrev}
-        handleNext={handleNext}
         onMonthChange={handleMonthChange}
         onYearChange={handleYearChange}
       />
-      
+
     </main>
   )
 }

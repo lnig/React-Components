@@ -12,8 +12,6 @@ type CalendarProps = {
   baseYear: number,
   onDateSelect: (date: Date) => void,
   selectedDate: Date | null,
-  handlePrev: () => void,
-  handleNext: () => void,
   currentMonthIndex: number,
   onMonthChange: (monthIndex: number) => void,
   onYearChange: (year: number) => void,
@@ -25,8 +23,6 @@ const Calendar: React.FC<CalendarProps> = ({
   baseYear,
   onDateSelect,
   selectedDate,
-  handlePrev,
-  handleNext,
   currentMonthIndex,
   onMonthChange,
   onYearChange,
@@ -37,6 +33,7 @@ const Calendar: React.FC<CalendarProps> = ({
   const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
   const monthDropdownRef = useRef<HTMLDivElement | null>(null);
   const yearDropdownRef = useRef<HTMLDivElement | null>(null);
+  const yearListRef = useRef<HTMLDivElement | null>(null);
 
   const [daysInMonth, setDaysInMonth] = useState<number>(
     getDaysInMonth(currentMonthIndex, baseYear)
@@ -60,7 +57,33 @@ const Calendar: React.FC<CalendarProps> = ({
 
   }, [currentMonthIndex, baseYear]);
 
+  const handlePrev = () => {
+    if (currentMonthIndex === 0) {
+      onMonthChange(11);
+      onYearChange(baseYear - 1);
+    } else {
+      onMonthChange(currentMonthIndex - 1);
+    }
+  }
+
+  const handleNext = () => {
+    if (currentMonthIndex === 11) {
+      onMonthChange(0);
+      onYearChange(baseYear + 1);
+    } else {
+      onMonthChange(currentMonthIndex + 1);
+    }
+  }
+
+  useEffect(() => { 
+    if(yearDropdownOpen && yearListRef.current) {
+      const index = baseYear - (currentYear - 64) + 4;
+      yearListRef.current.scrollTop = 24 * index;
+    }
+  }, [yearDropdownOpen, baseYear]);
+
   let datesToRender: Date[] = [];
+  const currentYear = new Date().getFullYear();
 
   return (
     <div className='xl:w-fit'>
@@ -105,8 +128,8 @@ const Calendar: React.FC<CalendarProps> = ({
             </p>
 
             {yearDropdownOpen && (
-              <div className='absolute w-full top-6 z-10 flex flex-col bg-white border border-[#E0E0E0] rounded shadow-lg max-h-56 overflow-y-auto custom-scrollbar'>
-                {Array.from({ length: 72 }, (_, i) => baseYear - 64 + i).map((year) => {
+              <div ref={yearListRef} className='absolute w-full top-6 z-10 flex flex-col bg-white border border-[#E0E0E0] rounded shadow-lg max-h-56 overflow-y-auto custom-scrollbar'>
+                {Array.from({ length: 72 }, (_, i) => currentYear - 64 + i).map((year) => {
                   return (
                     <div
                       key={year}
