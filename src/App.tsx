@@ -34,7 +34,18 @@ function App() {
       setCurrentMonth(currentMonth + 1);
     }
   }
-  
+
+  const handleMonthChange = (monthIndex: number) => {
+    setCurrentMonth(monthIndex);
+  }
+
+  const handleYearChange = (year: number) => {
+    setCurrentYear(year);
+  }
+
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+  };
 
   return (
     <main className='flex flex-col w-full h-full p-8 gap-8'>
@@ -67,7 +78,7 @@ function App() {
         checked={checked}
         size={24}
         onChange={setChecked}
-      />
+      /> 
 
       <Button 
         text='Click Me'
@@ -77,13 +88,15 @@ function App() {
         onClick={() => alert('Button Clicked')}
       />
 
-      <Calendar 
+      <Calendar
         baseYear={currentYear}
         currentMonthIndex={currentMonth}
-        onDateSelect={setSelectedDate}
         selectedDate={selectedDate}
+        onDateSelect={handleDateSelect}
         handlePrev={handlePrev}
         handleNext={handleNext}
+        onMonthChange={handleMonthChange}
+        onYearChange={handleYearChange}
       />
       
     </main>

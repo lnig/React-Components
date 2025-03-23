@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   dayNames,
   monthNames,
   getDaysInMonth,
   areDatesEqual,
-  getStartOfWeek,
-  formatWeekRange,
-  getYearForMonthIndex
 } from '../utils/dateUtils';
+import '../App.css';
 
 type CalendarProps = {
   baseYear: number,
@@ -17,8 +15,10 @@ type CalendarProps = {
   handlePrev: () => void,
   handleNext: () => void,
   currentMonthIndex: number,
-  primaryColor: string,
-  secondaryColor: string
+  onMonthChange: (monthIndex: number) => void,
+  onYearChange: (year: number) => void,
+  primaryColor?: string,
+  secondaryColor?: string,
 };
 
 const Calendar: React.FC<CalendarProps> = ({
@@ -28,16 +28,36 @@ const Calendar: React.FC<CalendarProps> = ({
   handlePrev,
   handleNext,
   currentMonthIndex,
+  onMonthChange,
+  onYearChange,
   primaryColor = '#EB4C60',
   secondaryColor = '#FFFFFF',
 }) => {
-  
+  const [monthDropdownOpen, setMonthDropdownOpen] = useState(false);
+  const [yearDropdownOpen, setYearDropdownOpen] = useState(false);
+  const monthDropdownRef = useRef<HTMLDivElement | null>(null);
+  const yearDropdownRef = useRef<HTMLDivElement | null>(null);
+
   const [daysInMonth, setDaysInMonth] = useState<number>(
     getDaysInMonth(currentMonthIndex, baseYear)
   );
 
   useEffect(() => {
     setDaysInMonth(getDaysInMonth(currentMonthIndex, baseYear));
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (monthDropdownRef.current && !monthDropdownRef.current.contains(e.target as Node)) {
+        setMonthDropdownOpen(false);
+      }
+
+      if (yearDropdownRef.current && !yearDropdownRef.current.contains(e.target as Node)) {
+        setYearDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+
   }, [currentMonthIndex, baseYear]);
 
   let datesToRender: Date[] = [];
@@ -47,19 +67,67 @@ const Calendar: React.FC<CalendarProps> = ({
       <div className='flex justify-between items-center mb-4'>
         <button
           onClick={handlePrev}
-          className={`grid place-content-center w-6 h-6 bg-[#F2F3F4] rounded`}
+          className={`grid place-content-center w-6 h-6 bg-[#F2F3F4] hover:bg-[#DEE1E5] rounded`}
           aria-label="Previous month"
         >
           <ChevronLeft size={16} color='#313642' />
         </button>
 
-        <p className="text-base text-[#313642]">
-          {monthNames[currentMonthIndex]} {baseYear}
-        </p>
+        <div className='flex items-center relative'>
+          <div className="relative text-center w-full" ref={monthDropdownRef}>
+            <p className={`px-2 min-w-12 text-base text-[#313642] cursor-pointer hover:bg-[#F2F3F4] ${monthDropdownOpen ? 'bg-[#F2F3F4]' : ''} rounded`} onClick={() => {setMonthDropdownOpen(!monthDropdownOpen); setYearDropdownOpen(false)}}>
+              {monthNames[currentMonthIndex]}
+            </p>
+
+            {monthDropdownOpen && (
+              <div className='absolute w-full top-6 z-10 flex flex-col bg-white border border-[#E0E0E0] rounded shadow-lg max-h-56 overflow-y-auto custom-scrollbar'>
+                {monthNames.map((monthName, idx) => {
+                  return (
+                    <div
+                      key={idx}
+                      className='flex items-center rounded justify-center py-[2px] hover:bg-[#F2F3F4] cursor-pointer'
+                      onClick={() => {
+                        setMonthDropdownOpen(false);
+                        onMonthChange(idx);
+                      }}
+                    >
+                      <p>{monthName.slice(0,3)}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          <div className="relative w-full " ref={yearDropdownRef}>
+            <p className={`px-3 text-base text-[#313642] cursor-pointer hover:bg-[#F2F3F4] ${yearDropdownOpen ? 'bg-[#F2F3F4]' : ''} rounded`} onClick={() => {setYearDropdownOpen(!yearDropdownOpen); setMonthDropdownOpen(false)}}>
+              {baseYear}
+            </p>
+
+            {yearDropdownOpen && (
+              <div className='absolute w-full top-6 z-10 flex flex-col bg-white border border-[#E0E0E0] rounded shadow-lg max-h-56 overflow-y-auto custom-scrollbar'>
+                {Array.from({ length: 72 }, (_, i) => baseYear - 64 + i).map((year) => {
+                  return (
+                    <div
+                      key={year}
+                      className='flex items-center rounded justify-center py-[2px] hover:bg-[#F2F3F4] cursor-pointer'
+                      onClick={() => {
+                        setYearDropdownOpen(false);
+                        onYearChange(year); 
+                      }}
+                    >
+                      <p>{year}</p>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        </div>
 
         <button
           onClick={handleNext}
-          className={`grid place-content-center w-6 h-6 bg-[#F2F3F4] rounded`}
+          className={`grid place-content-center w-6 h-6 bg-[#F2F3F4] hover:bg-[#DEE1E5] rounded`}
           aria-label="Next month"
         >
           <ChevronRight size={16} color='#313642' />
@@ -139,7 +207,7 @@ const Calendar: React.FC<CalendarProps> = ({
                       : isCurrentMonth
                       ? 'bg-transparent]'
                       : 'text-[#BDC0C9] bg-transparent'}
-                    ${isCurrentMonth && isWeekend ? 'text-[color:var(--primary-color)]' : ''}`}
+                    ${isCurrentMonth && isWeekend ? 'font-semibold text-[color:var(--primary-color)]' : ''}`}
                   onClick={() => isCurrentMonth && onDateSelect(currentDate)}
                   aria-disabled={!isCurrentMonth}
                   aria-label={`${isSelected ? 'Selected ' : ''}${dayNames[(currentDate.getDay() + 6) % 7]}, ${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`}
