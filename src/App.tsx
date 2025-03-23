@@ -47,7 +47,7 @@ function App() {
       <NumberInput 
         value={value}
         onChange={setValue}
-        minValue={0}
+        minValue={-100}
         maxValue={99}
       />
 
@@ -79,6 +79,8 @@ function App() {
         onMonthChange={handleMonthChange}
         onYearChange={handleYearChange}
       />
+
+      
 
     </main>
   )

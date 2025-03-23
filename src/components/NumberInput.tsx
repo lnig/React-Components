@@ -41,7 +41,10 @@ const NumberInput: React.FC<NumberInputProps> = ({
   disabled = false,             
   onChange                      
 }) => {
-  const width = (maxValue.toString().length - 1) * 24;
+  const width = (maxValue.toString().length - 1) * 32;
+
+  const isIncreaseValueDisabled = value < maxValue;
+  const isDecreaseValueDisabled = value > minValue;
 
   const decreaseValue = () => {
     const newValue = Math.max(value - 1, minValue);
@@ -75,7 +78,7 @@ return (
       background: bgColor
     }}>
     <button 
-      className="flex items-center justify-center rounded"
+      className={`flex items-center justify-center rounded ${isDecreaseValueDisabled ? 'cursor-pointer' : 'cursor-not-allowed'}`}
       onClick={decreaseValue}
       disabled={value <= minValue || disabled}
       style={{
@@ -107,7 +110,7 @@ return (
       </>
     )}
     <button 
-      className="flex items-center justify-center rounded"
+      className={`flex items-center justify-center rounded ${isIncreaseValueDisabled ? 'cursor-pointer' : 'cursor-not-allowed'}`}
       onClick={increaseValue}
       disabled={value >= maxValue || disabled}
       style={{
