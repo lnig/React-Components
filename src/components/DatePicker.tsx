@@ -4,6 +4,7 @@ import Calendar from './Calendar';
 type DatePickerProps = {
   size?: 'xs' | 's' | 'm' | 'l' | 'xl',
   borderColor?: string,
+  borderColorFocusActive?: string,
   backgroundColor?: string,
   textColor?: string,
   Icon?: React.ElementType,
@@ -18,6 +19,7 @@ type DatePickerProps = {
 const DatePicker: React.FC<DatePickerProps> = ({
   size = 'm',
   borderColor = '#DEE1E5',
+  borderColorFocusActive = '#BDC0C9',
   backgroundColor = '#FFFFFF',
   textColor = '#313642',
   Icon,
@@ -28,6 +30,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onMonthChange,
   onYearChange,
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -39,6 +43,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
     xl: 'px-3 py-2 text-lg h-11',
   };
 
+  const currentBorderColor = isActive || isFocused
+  ? borderColorFocusActive
+  : borderColor;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -57,8 +64,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
     setIsOpen(false);
   }
 
+
   return (
-    <div className="relative" ref={wrapperRef}>
+    <div className="relative w-fit" ref={wrapperRef}>
       <div className="">
         {Icon && (
           <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
@@ -75,9 +83,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
           value={selectedDate ? selectedDate.toLocaleDateString() : ''}
           placeholder="Select date"
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-64 border rounded cursor-pointer focus:outline-none focus:ring-1 placeholder:text-[#8E94A0] 
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onMouseDown={() => setIsActive(true)}
+          onMouseUp={() => setIsActive(false)}
+          className={`w-64 border rounded cursor-pointer focus:outline-none placeholder:text-[#8E94A0] 
                      ${size === 'xs' ? 'pl-7' : size === 's' ? 'pl-8 pb-[5px]' : size === 'm' ? 'pl-9 pb-[6px]' :  size === 'l' ? 'pl-9' : 'pl-10'} ${sizeClasses[size]}`}
-          style={{ borderColor, background: backgroundColor, color: textColor }}
+          style={{ borderColor: currentBorderColor, background: backgroundColor, color: textColor }}
         />
       </div>
       {isOpen && (

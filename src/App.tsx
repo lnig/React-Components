@@ -3,13 +3,14 @@ import './App.css'
 import NumberInput from './components/NumberInput';
 import PieChart from "./components/PieChart"
 import Stepper from './components/Stepper';
-import { Calendar1, Check, Pen } from 'lucide-react';
+import { AtSign, Calendar1, Check, Lock, Pen } from 'lucide-react';
 import ProgressBar from './components/ProgressBar';
 import Checkbox from './components/Checkbox';
 import Button from './components/Button';
 import Calendar from './components/Calendar';
 import Avatar from './components/Avatar';
 import DatePicker from './components/DatePicker';
+import Input from './components/Input';
 
 function App() {
   const steps = ['Basic Information', 'Questions', 'Access To Test', 'Settings', 'Summary', 'Basic Information1', 'Access To Test2', 'Settings3'];
@@ -21,6 +22,7 @@ function App() {
   const [selectedDateDP, setSelectedDateDP] = useState(new Date());
   const [currentMonthDP, setCurrentMonthDP] = useState(new Date().getMonth());
   const [currentYearDP, setCurrentYearDP] = useState(new Date().getFullYear());
+  const [string, setString] = useState('');
 
 
   const handleMonthChange = (monthIndex: number) => {
@@ -129,6 +131,26 @@ function App() {
         baseYear={currentYearDP}
         currentMonthIndex={currentMonthDP}
       />
+
+      <Input 
+        value={string}
+        onValueChange={setString}
+        size="m"
+        width="w-64"
+        Icon={AtSign}
+        placeholder='Enter your email'
+      />
+
+      <input type="color"/> 
+      <input type="email"/>
+      <input type="password"/>
+      <input type="radio"/>
+      <input type="range"/>
+
+      <input type="tel"/>
+      <input type="text"/>
+      <input type="time"/>
+
     </main>
   )
 }
