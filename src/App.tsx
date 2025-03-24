@@ -18,6 +18,10 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [selectedDateDP, setSelectedDateDP] = useState(new Date());
+  const [currentMonthDP, setCurrentMonthDP] = useState(new Date().getMonth());
+  const [currentYearDP, setCurrentYearDP] = useState(new Date().getFullYear());
+
 
   const handleMonthChange = (monthIndex: number) => {
     setCurrentMonth(monthIndex);
@@ -29,6 +33,18 @@ function App() {
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
+  };
+
+  const handleMonthChangeDP = (monthIndex: number) => {
+    setCurrentMonthDP(monthIndex);
+  }
+
+  const handleYearChangeDP = (year: number) => {
+    setCurrentYearDP(year);
+  }
+
+  const handleDateSelectDP = (date: Date) => {
+    setSelectedDateDP(date);
   };
 
   return (
@@ -61,7 +77,7 @@ function App() {
 
       <Checkbox 
         checked={checked}
-        size={24}
+        size={20}
         onChange={setChecked}
       /> 
 
@@ -106,8 +122,13 @@ function App() {
       <DatePicker
         size='m'
         Icon={Calendar1}
+        selectedDate={selectedDateDP}
+        onDateSelect={handleDateSelectDP}
+        onMonthChange={handleMonthChangeDP}
+        onYearChange={handleYearChangeDP}
+        baseYear={currentYearDP}
+        currentMonthIndex={currentMonthDP}
       />
-
     </main>
   )
 }

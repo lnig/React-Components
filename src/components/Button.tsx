@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
 interface ButtonProps {
-  size?: 'xs' | 's' | 'm' | 'l' | 'xl',
-  type?: 'primary' | 'secondary' | 'tertiary' | 'icon',
-  btnType?: 'button' | 'submit' | 'reset',
-  primaryColor?: string,
-  secondaryColor?: string,
-  tertiaryColor?: string,
-  hoverPrimaryColor?: string,
-  hoverSecondaryColor?: string,
-  width?: string,
-  text?: string,
-  Icon?: React.ElementType,
-  onClick?: React.MouseEventHandler<HTMLButtonElement>,
-  disabled?: boolean
+  size?: 'xs' | 's' | 'm' | 'l' | 'xl',                   // size of the button
+  type?: 'primary' | 'secondary' | 'tertiary' | 'icon',   // type of the button
+  btnType?: 'button' | 'submit' | 'reset',                // type of the button element
+  primaryColor?: string,                                  // primary color of the button
+  secondaryColor?: string,                                // secondary color of the button
+  tertiaryColor?: string,                                 // tertiary color of the button
+  hoverPrimaryColor?: string,                             // primary color of the button on hover  
+  hoverSecondaryColor?: string,                           // secondary color of the button on hover
+  width?: string,                                         // width of the button
+  text?: string,                                          // text of the button                 
+  Icon?: React.ElementType,                               // icon of the button              
+  onClick?: React.MouseEventHandler<HTMLButtonElement>,   // click event handler
+  disabled?: boolean                                      // if the button is disabled
 }
 
 const Button: React.FC<ButtonProps> = ({

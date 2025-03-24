@@ -31,13 +31,3 @@ input[type="number"] {
 .custom-scrollbar::-webkit-scrollbar-button {
   display: none;
 }
-
-/* Firefox */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.3) transparent; 
-}
-
-.custom-scrollbar::-moz-scrollbar-thumb {
-  border-radius: 10px;
-}

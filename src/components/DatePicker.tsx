@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { dayNames, monthNames, getDaysInMonth, areDatesEqual } from '../utils/dateUtils';
 import Calendar from './Calendar';
 
 type DatePickerProps = {
@@ -8,6 +7,12 @@ type DatePickerProps = {
   backgroundColor?: string,
   textColor?: string,
   Icon?: React.ElementType,
+  selectedDate: Date | null,
+  currentMonthIndex: number,
+  baseYear: number,
+  onDateSelect: (date: Date) => void,
+  onMonthChange: (monthIndex: number) => void,
+  onYearChange: (year: number) => void,
 };
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -16,10 +21,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
   backgroundColor = '#FFFFFF',
   textColor = '#313642',
   Icon,
+  selectedDate,
+  currentMonthIndex,
+  baseYear,
+  onDateSelect,
+  onMonthChange,
+  onYearChange,
 }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [currentMonthIndex, setCurrentMonthIndex] = useState(new Date().getMonth());
-  const [baseYear, setBaseYear] = useState(new Date().getFullYear());
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -31,18 +39,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
     xl: 'px-3 py-2 text-lg h-11',
   };
 
-  const handleMonthChange = (monthIndex: number) => {
-    setCurrentMonthIndex(monthIndex);
-  };
-
-  const handleYearChange = (year: number) => {
-    setBaseYear(year);
-  };
-
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-    setIsOpen(false);
-  };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -54,14 +50,23 @@ const DatePicker: React.FC<DatePickerProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const isDateSelected = selectedDate !== null;
+
+  const handleDateSelect = (date: Date) => {
+    onDateSelect(date);
+    setIsOpen(false);
+  }
+
   return (
     <div className="relative" ref={wrapperRef}>
       <div className="">
         {Icon && (
           <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
             <Icon 
-              size={size === 'xs' || size === 's' ? 16 : size === 'm' || size === 'l' ? 20 : 24} 
-              color={textColor}/>
+              size={size === 'xs' ? 16 : size === 's' ? 18 : size === 'm' ? 20 : size === 'l' ? 20 : 24} 
+              color={isDateSelected ? textColor : '#8E94A0'}
+              strokeWidth={1.5}
+            />
           </div>
         )}
         <input
@@ -70,8 +75,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
           value={selectedDate ? selectedDate.toLocaleDateString() : ''}
           placeholder="Select date"
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-64 border rounded cursor-pointer focus:outline-none focus:ring-1 
-                     ${size === 'xs' || size === 's' ? 'pl-7' : size === 'm' || size === 'l' ? 'pl-8' : 'pl-9'} ${sizeClasses[size]}`}
+          className={`w-64 border rounded cursor-pointer focus:outline-none focus:ring-1 placeholder:text-[#8E94A0] 
+                     ${size === 'xs' ? 'pl-7' : size === 's' ? 'pl-8 pb-[5px]' : size === 'm' ? 'pl-9 pb-[6px]' :  size === 'l' ? 'pl-9' : 'pl-10'} ${sizeClasses[size]}`}
           style={{ borderColor, background: backgroundColor, color: textColor }}
         />
       </div>
@@ -82,11 +87,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
         >
           <Calendar 
             baseYear={baseYear}
-            currentMonthIndex={currentMonthIndex}
-            selectedDate={selectedDate}
             onDateSelect={handleDateSelect}
-            onMonthChange={handleMonthChange}
-            onYearChange={handleYearChange}
+            selectedDate={selectedDate}
+            currentMonthIndex={currentMonthIndex}
+            onMonthChange={onMonthChange}
+            onYearChange={onYearChange}  
             size="s"
           />
         </div> 
