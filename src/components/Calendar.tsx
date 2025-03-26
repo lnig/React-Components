@@ -232,7 +232,7 @@ const Calendar: React.FC<CalendarProps> = ({
                       : isCurrentMonth
                       ? 'bg-transparent]'
                       : 'text-[#BDC0C9] bg-transparent'}
-                    ${isCurrentMonth && isWeekend ? 'font-semibold text-[color:var(--primary-color)]' : ''}`}
+                    ${isCurrentMonth && isWeekend ? 'font-semibold text-[#EB4C60]' : ''}`}
                   onClick={() => isCurrentMonth && onDateSelect(currentDate)}
                   aria-disabled={!isCurrentMonth}
                   aria-label={`${isSelected ? 'Selected ' : ''}${dayNames[(currentDate.getDay() + 6) % 7]}, ${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`}

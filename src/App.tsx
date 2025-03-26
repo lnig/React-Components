@@ -3,7 +3,7 @@ import './App.css'
 import NumberInput from './components/NumberInput';
 import PieChart from "./components/PieChart"
 import Stepper from './components/Stepper';
-import { AtSign, Calendar1, Check, Lock, Pen } from 'lucide-react';
+import { AtSign, Calendar1, Check, Clock, Lock, Pen } from 'lucide-react';
 import ProgressBar from './components/ProgressBar';
 import Checkbox from './components/Checkbox';
 import Button from './components/Button';
@@ -11,6 +11,7 @@ import Calendar from './components/Calendar';
 import Avatar from './components/Avatar';
 import DatePicker from './components/DatePicker';
 import Input from './components/Input';
+import TimePicker from './components/TimePicker';
 
 function App() {
   const steps = ['Basic Information', 'Questions', 'Access To Test', 'Settings', 'Summary', 'Basic Information1', 'Access To Test2', 'Settings3'];
@@ -23,6 +24,7 @@ function App() {
   const [currentMonthDP, setCurrentMonthDP] = useState(new Date().getMonth());
   const [currentYearDP, setCurrentYearDP] = useState(new Date().getFullYear());
   const [string, setString] = useState('');
+  const [time, setTime] = useState(new Date());
 
 
   const handleMonthChange = (monthIndex: number) => {
@@ -48,6 +50,10 @@ function App() {
   const handleDateSelectDP = (date: Date) => {
     setSelectedDateDP(date);
   };
+
+  const handleTimeChange = (time: Date) => {
+    setTime(time);
+  }
 
   return (
     <main className='flex flex-col w-full h-[200vh] p-8 gap-8'>
@@ -130,6 +136,7 @@ function App() {
         onYearChange={handleYearChangeDP}
         baseYear={currentYearDP}
         currentMonthIndex={currentMonthDP}
+        placeholder='Pick a date'
       />
 
       <Input 
@@ -141,15 +148,20 @@ function App() {
         placeholder='Enter your email'
       />
 
+      <TimePicker
+        size='m'
+        placeholder='Pick a time'
+        Icon={Clock}
+        value={time}
+        onValueChange={handleTimeChange}
+      />  
+
       <input type="color"/> 
       <input type="email"/>
       <input type="password"/>
       <input type="radio"/>
       <input type="range"/>
-
       <input type="tel"/>
-      <input type="text"/>
-      <input type="time"/>
 
     </main>
   )

@@ -1,4 +1,3 @@
-input
 label
 pagination
 radio group
@@ -12,4 +11,3 @@ textarea
 tooltip
 badge
 tag
-time picker

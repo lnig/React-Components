@@ -7,6 +7,7 @@ type DatePickerProps = {
   borderColorFocusActive?: string,
   backgroundColor?: string,
   textColor?: string,
+  primaryColor?: string,
   Icon?: React.ElementType,
   selectedDate: Date | null,
   currentMonthIndex: number,
@@ -14,6 +15,7 @@ type DatePickerProps = {
   onDateSelect: (date: Date) => void,
   onMonthChange: (monthIndex: number) => void,
   onYearChange: (year: number) => void,
+  placeholder?: string
 };
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -22,6 +24,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   borderColorFocusActive = '#BDC0C9',
   backgroundColor = '#FFFFFF',
   textColor = '#313642',
+  primaryColor = '#EB4C60',
   Icon,
   selectedDate,
   currentMonthIndex,
@@ -29,6 +32,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   onDateSelect,
   onMonthChange,
   onYearChange,
+  placeholder
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -64,7 +68,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
     setIsOpen(false);
   }
 
-
   return (
     <div className="relative w-fit" ref={wrapperRef}>
       <div className="">
@@ -81,14 +84,15 @@ const DatePicker: React.FC<DatePickerProps> = ({
           type="text"
           readOnly
           value={selectedDate ? selectedDate.toLocaleDateString() : ''}
-          placeholder="Select date"
+          placeholder={placeholder}
           onClick={() => setIsOpen(!isOpen)}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onMouseDown={() => setIsActive(true)}
           onMouseUp={() => setIsActive(false)}
           className={`w-64 border rounded cursor-pointer focus:outline-none placeholder:text-[#8E94A0] 
-                     ${size === 'xs' ? 'pl-7' : size === 's' ? 'pl-8 pb-[5px]' : size === 'm' ? 'pl-9 pb-[6px]' :  size === 'l' ? 'pl-9' : 'pl-10'} ${sizeClasses[size]}`}
+                     ${Icon && (size === 'xs' ? 'pl-7' : size === 's' ? 'pl-8 pb-[5px]' : size === 'm' ? 'pl-9 pb-[6px]' :  size === 'l' ? 'pl-9' : 'pl-10')} ${sizeClasses[size]}
+                     ${!Icon && 'pl-3'}`}
           style={{ borderColor: currentBorderColor, background: backgroundColor, color: textColor }}
         />
       </div>
@@ -105,6 +109,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
             onMonthChange={onMonthChange}
             onYearChange={onYearChange}  
             size="s"
+            primaryColor={primaryColor}
           />
         </div> 
       )}

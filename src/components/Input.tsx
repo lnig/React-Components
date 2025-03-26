@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
-type InputProps = {
-  value: string | null,
-  onValueChange: (value: string) => void,
-  placeholder?: string,
-  size: 'xs' | 's' | 'm' | 'l' | 'xl',
-  width?: string,
-  borderColor?: string,
-  borderColorFocusActive?: string,
-  backgroundColor?: string,
-  textColor?: string,
-  Icon?: React.ElementType,
+type InputProps = { 
+  value: string | null,                     // value of the input
+  onValueChange: (value: string) => void,   // function to update the value
+  placeholder?: string,                     // placeholder text        
+  size: 'xs' | 's' | 'm' | 'l' | 'xl',      // size of the input
+  width?: string,                           // width of the input
+  borderColor?: string,                     // border color of the input         
+  borderColorFocusActive?: string,          // border color of the input when focused or active
+  backgroundColor?: string,                 // background color of the input     
+  textColor?: string,                       // text color of the input       
+  Icon?: React.ElementType,                 // icon component
 }
 
 const Input: React.FC<InputProps> = ({
@@ -36,16 +36,6 @@ const Input: React.FC<InputProps> = ({
     xl: 'px-3 py-2 text-lg h-11',
   };
 
-  const paddingClass = size === 'xs'
-    ? 'pl-7'
-    : size === 's'
-    ? 'pl-8 pb-[5px]'
-    : size === 'm'
-    ? 'pl-9 pb-[6px]'
-    : size === 'l'
-    ? 'pl-9'
-    : 'pl-10';
-
   const currentBorderColor = isActive || isFocused
     ? borderColorFocusActive
     : borderColor;
@@ -70,7 +60,9 @@ const Input: React.FC<InputProps> = ({
         onMouseDown={() => setIsActive(true)}
         onMouseUp={() => setIsActive(false)}
         placeholder={placeholder}
-        className={`border rounded cursor-pointer focus:outline-none placeholder:text-[#8E94A0] ${width} ${paddingClass} ${sizeClasses[size]}`}
+        className={`border rounded cursor-pointer focus:outline-none placeholder:text-[#8E94A0] ${width} ${sizeClasses[size]} 
+                    ${Icon && (size === 'xs' ? 'pl-7' : size === 's' ? 'pl-8 pb-[5px]' : size === 'm' ? 'pl-9 pb-[6px]' :  size === 'l' ? 'pl-9' : 'pl-10')}
+                    ${!Icon && 'pl-3'}`}
         style={{ borderColor: currentBorderColor, background: backgroundColor, color: textColor }}
       />
     </div>
