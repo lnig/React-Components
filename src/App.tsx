@@ -12,20 +12,31 @@ import Avatar from './components/Avatar';
 import DatePicker from './components/DatePicker';
 import Input from './components/Input';
 import TimePicker from './components/TimePicker';
+import Switch from './components/Switch';
 
 function App() {
-  const steps = ['Basic Information', 'Questions', 'Access To Test', 'Settings', 'Summary', 'Basic Information1', 'Access To Test2', 'Settings3'];
-  const [value, setValue] = useState(5);
-  const [checked, setChecked] = useState(true);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [selectedDateDP, setSelectedDateDP] = useState(new Date());
-  const [currentMonthDP, setCurrentMonthDP] = useState(new Date().getMonth());
-  const [currentYearDP, setCurrentYearDP] = useState(new Date().getFullYear());
-  const [string, setString] = useState('');
-  const [stringPass, setStringPass] = useState('');
-  const [time, setTime] = useState(new Date());
+  const steps: string[] = [
+    'Basic Information',
+    'Questions',
+    'Access To Test',
+    'Settings',
+    'Summary',
+    'Basic Information1',
+    'Access To Test2',
+    'Settings3'
+  ]
+  const [value, setValue] = useState<number>(5)
+  const [checked, setChecked] = useState<boolean>(true)
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth())
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear())
+  const [selectedDateDP, setSelectedDateDP] = useState<Date>(new Date())
+  const [currentMonthDP, setCurrentMonthDP] = useState<number>(new Date().getMonth())
+  const [currentYearDP, setCurrentYearDP] = useState<number>(new Date().getFullYear())
+  const [string, setString] = useState<string>('')
+  const [stringPass, setStringPass] = useState<string>('')
+  const [time, setTime] = useState<Date>(new Date())
+  const [isOn, setIsOn] = useState<boolean>(true)
 
 
   const handleMonthChange = (monthIndex: number) => {
@@ -54,6 +65,10 @@ function App() {
 
   const handleTimeChange = (time: Date) => {
     setTime(time);
+  }
+
+  const handleSwitchValueChange = (value: boolean) => {
+    setIsOn(value);
   }
 
   return (
@@ -129,7 +144,7 @@ function App() {
       </div>
 
       <DatePicker
-        size='l'
+        size='m'
         Icon={Calendar1}
         selectedDate={selectedDateDP}
         onDateSelect={handleDateSelectDP}
@@ -144,7 +159,7 @@ function App() {
         type='text'
         value={string}
         onValueChange={setString}
-        size="l"
+        size="m"
         width="w-64"
         Icon={AtSign}
         placeholder='Enter your email'
@@ -154,7 +169,7 @@ function App() {
         type='password'
         value={stringPass}
         onValueChange={setStringPass}
-        size="l"
+        size="m"
         width="w-64"
         Icon={KeyRound}
         placeholder='Enter your password'
@@ -167,7 +182,13 @@ function App() {
         value={time}
         onValueChange={handleTimeChange}
       />  
-      
+
+      <Switch 
+        value={isOn}
+        onValueChange={handleSwitchValueChange}
+        size='m'
+      />
+
       <input type="color"/> 
       <input type="password"/>
       <input type="radio"/>

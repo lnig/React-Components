@@ -1,13 +1,13 @@
-label
-pagination
+tag
+textarea
+separator
 radio group
 select
-separator
+label
+pagination
 skeleton
 slider
-switch
 tabs
-textarea
 tooltip
 badge
-tag
+sidebar
