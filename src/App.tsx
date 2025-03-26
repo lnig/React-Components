@@ -3,7 +3,7 @@ import './App.css'
 import NumberInput from './components/NumberInput';
 import PieChart from "./components/PieChart"
 import Stepper from './components/Stepper';
-import { AtSign, Calendar1, Check, Clock, Lock, Pen } from 'lucide-react';
+import { AtSign, Calendar1, Check, Clock, Key, KeyRound, Lock, Pen } from 'lucide-react';
 import ProgressBar from './components/ProgressBar';
 import Checkbox from './components/Checkbox';
 import Button from './components/Button';
@@ -24,6 +24,7 @@ function App() {
   const [currentMonthDP, setCurrentMonthDP] = useState(new Date().getMonth());
   const [currentYearDP, setCurrentYearDP] = useState(new Date().getFullYear());
   const [string, setString] = useState('');
+  const [stringPass, setStringPass] = useState('');
   const [time, setTime] = useState(new Date());
 
 
@@ -128,7 +129,7 @@ function App() {
       </div>
 
       <DatePicker
-        size='m'
+        size='l'
         Icon={Calendar1}
         selectedDate={selectedDateDP}
         onDateSelect={handleDateSelectDP}
@@ -140,12 +141,23 @@ function App() {
       />
 
       <Input 
+        type='text'
         value={string}
         onValueChange={setString}
-        size="m"
+        size="l"
         width="w-64"
         Icon={AtSign}
         placeholder='Enter your email'
+      />
+
+      <Input 
+        type='password'
+        value={stringPass}
+        onValueChange={setStringPass}
+        size="l"
+        width="w-64"
+        Icon={KeyRound}
+        placeholder='Enter your password'
       />
 
       <TimePicker
@@ -155,9 +167,8 @@ function App() {
         value={time}
         onValueChange={handleTimeChange}
       />  
-
+      
       <input type="color"/> 
-      <input type="email"/>
       <input type="password"/>
       <input type="radio"/>
       <input type="range"/>
