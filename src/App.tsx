@@ -13,6 +13,7 @@ import DatePicker from './components/DatePicker';
 import Input from './components/Input';
 import TimePicker from './components/TimePicker';
 import Switch from './components/Switch';
+import Tag from './components/Tag';
 
 function App() {
   const steps: string[] = [
@@ -187,6 +188,12 @@ function App() {
         value={isOn}
         onValueChange={handleSwitchValueChange}
         size='m'
+      />
+
+      <Tag
+        text='10 min'
+        Icon={Pen}
+        size='xl'
       />
 
       <input type="color"/> 
