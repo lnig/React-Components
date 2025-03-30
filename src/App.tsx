@@ -15,6 +15,7 @@ import TimePicker from './components/TimePicker';
 import Switch from './components/Switch';
 import Tag from './components/Tag';
 import Separator from './components/Separator';
+import Textarea from './components/Textarea';
 
 function App() {
   const steps: string[] = [
@@ -27,18 +28,19 @@ function App() {
     'Access To Test2',
     'Settings3'
   ]
-  const [value, setValue] = useState<number>(5)
-  const [checked, setChecked] = useState<boolean>(true)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
-  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth())
-  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear())
-  const [selectedDateDP, setSelectedDateDP] = useState<Date>(new Date())
-  const [currentMonthDP, setCurrentMonthDP] = useState<number>(new Date().getMonth())
-  const [currentYearDP, setCurrentYearDP] = useState<number>(new Date().getFullYear())
-  const [string, setString] = useState<string>('')
-  const [stringPass, setStringPass] = useState<string>('')
-  const [time, setTime] = useState<Date>(new Date())
-  const [isOn, setIsOn] = useState<boolean>(true)
+  const [value, setValue] = useState<number>(5);
+  const [checked, setChecked] = useState<boolean>(true);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+  const [selectedDateDP, setSelectedDateDP] = useState<Date>(new Date());
+  const [currentMonthDP, setCurrentMonthDP] = useState<number>(new Date().getMonth());
+  const [currentYearDP, setCurrentYearDP] = useState<number>(new Date().getFullYear());
+  const [string, setString] = useState<string>('');
+  const [stringPass, setStringPass] = useState<string>('');
+  const [time, setTime] = useState<Date>(new Date());
+  const [isOn, setIsOn] = useState<boolean>(true);
+  const [stringTextarea, setStringTextarea] = useState<string>('');
 
 
   const handleMonthChange = (monthIndex: number) => {
@@ -122,7 +124,7 @@ function App() {
         onDateSelect={handleDateSelect}
         onMonthChange={handleMonthChange}
         onYearChange={handleYearChange}
-        size='s'
+        size='m'
       />
 
       <div className='flex -space-x-4'>
@@ -201,11 +203,16 @@ function App() {
         height={2}
       />
 
+      <Textarea 
+        value={stringTextarea}
+        onValueChange={setStringTextarea}
+        size='m'
+        placeholder='Write description'
+      />
+
       <input type="color"/> 
-      <input type="password"/>
       <input type="radio"/>
       <input type="range"/>
-      <input type="tel"/>
 
     </main>
   )

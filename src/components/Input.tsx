@@ -1,12 +1,12 @@
 import { Eye } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 type InputProps = { 
   type?: 'text' | 'password'
   value: string | null
   onValueChange: (value: string) => void
   placeholder?: string
-  size: 'xs' | 's' | 'm' | 'l' | 'xl'
+  size?: 'xs' | 's' | 'm' | 'l' | 'xl'
   width?: string
   borderColor?: string
   borderColorFocusActive?: string
@@ -31,6 +31,7 @@ const Input: React.FC<InputProps> = ({
   const [isFocused, setIsFocused] = useState(false)
   const [isActive, setIsActive] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const sizeClasses: Record<NonNullable<InputProps['size']>, string> = {
     xs: 'px-2 py-1 text-xs h-7',
@@ -58,6 +59,7 @@ const Input: React.FC<InputProps> = ({
       onBlur={() => setIsFocused(false)}
       onMouseDown={() => setIsActive(true)}
       onMouseUp={() => setIsActive(false)}
+      onClick={() => inputRef.current && inputRef.current.focus()}
     >
       <div className='flex items-center'>
         {Icon && (
@@ -70,6 +72,7 @@ const Input: React.FC<InputProps> = ({
           </div>
         )}
         <input
+          ref={inputRef}
           type={type === 'password' && !showPassword ? 'password' : 'text'}
           value={value || ''}
           onChange={(e) => onValueChange(e.target.value)}
