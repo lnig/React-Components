@@ -3,7 +3,7 @@ import './App.css'
 import NumberInput from './components/NumberInput';
 import PieChart from "./components/PieChart"
 import Stepper from './components/Stepper';
-import { AtSign, Calendar1, Check, Clock, Key, KeyRound, Lock, Pen } from 'lucide-react';
+import { AtSign, Calendar1, Check, Clock, Home, Key, KeyRound, Lock, LogOut, Pen, Settings, User } from 'lucide-react';
 import ProgressBar from './components/ProgressBar';
 import Checkbox from './components/Checkbox';
 import Button from './components/Button';
@@ -16,6 +16,7 @@ import Switch from './components/Switch';
 import Tag from './components/Tag';
 import Separator from './components/Separator';
 import Textarea from './components/Textarea';
+import Sidebar, { SidebarItem } from './components/Sidebar';
 
 function App() {
   const steps: string[] = [
@@ -76,144 +77,155 @@ function App() {
   }
 
   return (
-    <main className='flex flex-col w-full h-[200vh] p-8 gap-8'>
-      <PieChart
-        percentage={75}
-        size={120}
-        strokeWidth={8}
-        inside
-      />
+    <main className='flex flex-row w-full gap-8'>
 
-      <Stepper 
-        steps={steps}
-        currentStep={6}
-        Icon={Check}
-      />
-
-      <NumberInput 
-        value={value}
-        onChange={setValue}
-        minValue={-100}
-        maxValue={99}
-      />
-
-      <ProgressBar
-        value={40}
-        size={8}
-        messageBubble
-      />
-
-      <Checkbox 
-        checked={checked}
-        size={20}
-        onChange={setChecked}
-      /> 
-
-      <Button 
-        text='Click Me'
-        size='m'
-        type='primary'
-        Icon={Pen}
-        onClick={() => alert('Button Clicked')}
-      />
-
-      <Calendar
-        baseYear={currentYear}
-        currentMonthIndex={currentMonth}
-        selectedDate={selectedDate}
-        onDateSelect={handleDateSelect}
-        onMonthChange={handleMonthChange}
-        onYearChange={handleYearChange}
-        size='m'
-      />
-
-      <div className='flex -space-x-4'>
-        <Avatar
-          linkTo='https://avatars.githubusercontent.com/u/29613995?v=4'
-          src='https://avatars.githubusercontent.com/u/29613995?v=4'
-          alt='avatar'
-          size={32}
-        />
-        <Avatar
-          linkTo='https://avatars.githubusercontent.com/u/29613995?v=4'
-          src='https://avatars.githubusercontent.com/u/29613995?v=4'
-          alt='avatar'
-          size={32}
-        />
-         <Avatar
-          size={16}
-          staticAvatar
-          plusNumber={4}
-        />
+      <div>
+        <Sidebar>
+          <SidebarItem text="Home" path="/" Icon={Home} />
+          <SidebarItem text="Profile" path="/profile" Icon={User} badge />
+          <SidebarItem text="Settings" path="/settings" Icon={Settings} />
+          <Button text="Wyloguj" size="m" type="secondary" Icon={LogOut} onClick={() => {}} />
+        </Sidebar>
       </div>
+      
+      <div className='flex flex-col w-full p-8 gap-8'>
+        <PieChart
+          percentage={75}
+          size={120}
+          strokeWidth={8}
+          inside
+        />
 
-      <DatePicker
-        size='m'
-        Icon={Calendar1}
-        selectedDate={selectedDateDP}
-        onDateSelect={handleDateSelectDP}
-        onMonthChange={handleMonthChangeDP}
-        onYearChange={handleYearChangeDP}
-        baseYear={currentYearDP}
-        currentMonthIndex={currentMonthDP}
-        placeholder='Pick a date'
-      />
+        <Stepper 
+          steps={steps}
+          currentStep={6}
+          Icon={Check}
+        />
 
-      <Input 
-        type='text'
-        value={string}
-        onValueChange={setString}
-        size="m"
-        width="w-64"
-        Icon={AtSign}
-        placeholder='Enter your email'
-      />
+        <NumberInput 
+          value={value}
+          onChange={setValue}
+          minValue={-100}
+          maxValue={99}
+        />
 
-      <Input 
-        type='password'
-        value={stringPass}
-        onValueChange={setStringPass}
-        size="m"
-        width="w-64"
-        Icon={KeyRound}
-        placeholder='Enter your password'
-      />
+        <ProgressBar
+          value={40}
+          size={8}
+          messageBubble
+        />
 
-      <TimePicker
-        size='m'
-        placeholder='Pick a time'
-        Icon={Clock}
-        value={time}
-        onValueChange={handleTimeChange}
-      />  
+        <Checkbox 
+          checked={checked}
+          size={20}
+          onChange={setChecked}
+        /> 
 
-      <Switch 
-        value={isOn}
-        onValueChange={handleSwitchValueChange}
-        size='m'
-      />
+        <Button 
+          text='Click Me'
+          size='m'
+          type='primary'
+          Icon={Pen}
+          onClick={() => alert('Button Clicked')}
+        />
 
-      <Tag
-        text='10 min'
-        Icon={Pen}
-        size='s'
-      />
+        <Calendar
+          baseYear={currentYear}
+          currentMonthIndex={currentMonth}
+          selectedDate={selectedDate}
+          onDateSelect={handleDateSelect}
+          onMonthChange={handleMonthChange}
+          onYearChange={handleYearChange}
+          size='m'
+        />
 
-      <Separator 
-        height={2}
-      />
+        <div className='flex -space-x-4'>
+          <Avatar
+            linkTo='https://avatars.githubusercontent.com/u/29613995?v=4'
+            src='https://avatars.githubusercontent.com/u/29613995?v=4'
+            alt='avatar'
+            size={32}
+          />
+          <Avatar
+            linkTo='https://avatars.githubusercontent.com/u/29613995?v=4'
+            src='https://avatars.githubusercontent.com/u/29613995?v=4'
+            alt='avatar'
+            size={32}
+          />
+          <Avatar
+            size={16}
+            staticAvatar
+            plusNumber={4}
+          />
+        </div>
 
-      <Textarea 
-        value={stringTextarea}
-        onValueChange={setStringTextarea}
-        size='m'
-        placeholder='Write description'
-      />
+        <DatePicker
+          size='m'
+          Icon={Calendar1}
+          selectedDate={selectedDateDP}
+          onDateSelect={handleDateSelectDP}
+          onMonthChange={handleMonthChangeDP}
+          onYearChange={handleYearChangeDP}
+          baseYear={currentYearDP}
+          currentMonthIndex={currentMonthDP}
+          placeholder='Pick a date'
+        />
 
-      <input type="color"/> 
-      <input type="radio"/>
-      <input type="range"/>
+        <Input 
+          type='text'
+          value={string}
+          onValueChange={setString}
+          size="m"
+          width="w-64"
+          Icon={AtSign}
+          placeholder='Enter your email'
+        />
 
+        <Input 
+          type='password'
+          value={stringPass}
+          onValueChange={setStringPass}
+          size="m"
+          width="w-64"
+          Icon={KeyRound}
+          placeholder='Enter your password'
+        />
+
+        <TimePicker
+          size='m'
+          placeholder='Pick a time'
+          Icon={Clock}
+          value={time}
+          onValueChange={handleTimeChange}
+        />  
+
+        <Switch 
+          value={isOn}
+          onValueChange={handleSwitchValueChange}
+          size='m'
+        />
+
+        <Tag
+          text='10 min'
+          Icon={Pen}
+          size='s'
+        />
+
+        <Separator 
+          height={2}
+        />
+
+        <Textarea 
+          value={stringTextarea}
+          onValueChange={setStringTextarea}
+          size='m'
+          placeholder='Write description'
+        />
+
+        <input type="color"/> 
+        <input type="radio"/>
+        <input type="range"/>
+      </div>
     </main>
   )
 }

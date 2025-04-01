@@ -7,4 +7,3 @@ slider
 tabs
 tooltip
 badge
-sidebar
